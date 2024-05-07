@@ -1,10 +1,23 @@
 use crate::lua_core::*;
-
+use alloc::format;
+use alloc::string::String;
 type ResultCode = Int;
 
 /// Various errors that may occur during opening of a library.
-#[derive(Clone, PartialEq, Debug, Copy)]
-pub enum LibraryErr {}
+#[derive(Clone, PartialEq, Debug)]
+pub enum LibraryErr {
+    UnableToOpen(String),
+}
+#[cfg(feature = "std")]
+impl std::fmt::Display for LibraryErr {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        match self {
+            LibraryErr::UnableToOpen(s) => write!(f, "Unable to open library: {}", s),
+        }
+    }
+}
+#[cfg(feature = "std")]
+impl std::error::Error for LibraryErr {}
 
 /// Various libraries that may be enabled for Lua.
 #[derive(Clone, PartialEq, Debug, Copy)]
@@ -62,7 +75,10 @@ fn open_result_to_result(i: ResultCode) -> Result<(), LibraryErr> {
     match i {
         1 => Ok(()),
         // TODO: need to convert to an actual error
-        _ => todo!("openresult '{:?}'", i),
+        code => Err(LibraryErr::UnableToOpen(format!(
+            "Lua result: {:?}, code: {:?}",
+            i, code
+        ))),
     }
 }
 

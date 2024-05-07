@@ -8,6 +8,14 @@ use core::ffi::CStr;
 pub enum DataErr {
     StackUnderflow,
 }
+#[cfg(feature = "std")]
+impl std::fmt::Display for DataErr {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        match self {
+            DataErr::StackUnderflow => write!(f, "Stack underflow"),
+        }
+    }
+}
 
 /// A piece of data.
 #[derive(Clone, PartialEq, Debug)]

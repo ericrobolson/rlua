@@ -3,6 +3,17 @@ A Rusty wrapper for Lua. Will clone and compile Lua, then link to it.
 
 Right now a basic version is working, but many data types haven't been implemented.
 
+
+Include in your app using
+```
+llua = {git="https://github.com/ericrobolson/LucidLua"}
+```
+
+With error handling:
+```
+llua = {git="https://github.com/ericrobolson/LucidLua", features=["std"]}
+```
+
 # Usage
 ```
 use llua::*;

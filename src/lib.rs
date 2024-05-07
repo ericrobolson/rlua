@@ -1,4 +1,4 @@
-#![cfg_attr(not(test), no_std)]
+#![cfg_attr(all(not(test), not(feature = "std")), no_std)]
 
 extern crate alloc;
 
@@ -35,3 +35,24 @@ impl From<DataErr> for Error {
         Error::Data(e)
     }
 }
+
+#[cfg(feature = "std")]
+impl std::fmt::Display for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        match self {
+            Error::Runtime(s) => write!(f, "Runtime error: {}", s),
+            Error::Data(e) => write!(f, "Data error: {}", e),
+            Error::Library(e) => write!(f, "Library error: {}", e),
+        }
+    }
+}
+#[cfg(feature = "std")]
+impl std::error::Error for Error {}
+
+/*
+
+34 |     let result: [Data; 0] = m.call("my_func", [])?;
+   |                                                  ^ the trait `std::error::Error` is not implemented for `llua::Error`, which is required by `Result<(), Box<dyn std::error::Error>>: FromResidual<Result<Infallible, llua::Error>>`
+   |
+
+*/
