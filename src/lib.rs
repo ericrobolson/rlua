@@ -48,11 +48,3 @@ impl std::fmt::Display for Error {
 }
 #[cfg(feature = "std")]
 impl std::error::Error for Error {}
-
-/*
-
-34 |     let result: [Data; 0] = m.call("my_func", [])?;
-   |                                                  ^ the trait `std::error::Error` is not implemented for `llua::Error`, which is required by `Result<(), Box<dyn std::error::Error>>: FromResidual<Result<Infallible, llua::Error>>`
-   |
-
-*/
