@@ -129,15 +129,59 @@ impl<'a> From<&'a str> for Data {
         Data::String(s.into())
     }
 }
+impl From<f32> for Data {
+    fn from(n: f32) -> Self {
+        Data::Number(n as LuaNum)
+    }
+}
 impl From<LuaNum> for Data {
     fn from(n: LuaNum) -> Self {
         Data::Number(n)
     }
 }
-
+impl From<u8> for Data {
+    fn from(n: u8) -> Self {
+        Data::Number(n as LuaNum)
+    }
+}
+impl From<u16> for Data {
+    fn from(n: u16) -> Self {
+        Data::Number(n as LuaNum)
+    }
+}
+impl From<u32> for Data {
+    fn from(n: u32) -> Self {
+        Data::Number(n as LuaNum)
+    }
+}
+impl From<u64> for Data {
+    fn from(n: u64) -> Self {
+        Data::Number(n as LuaNum)
+    }
+}
+impl From<i8> for Data {
+    fn from(n: i8) -> Self {
+        Data::Number(n as LuaNum)
+    }
+}
+impl From<i16> for Data {
+    fn from(n: i16) -> Self {
+        Data::Number(n as LuaNum)
+    }
+}
+impl From<i32> for Data {
+    fn from(n: i32) -> Self {
+        Data::Number(n as LuaNum)
+    }
+}
 impl From<i64> for Data {
     fn from(n: i64) -> Self {
         Data::Number(n as LuaNum)
+    }
+}
+impl From<bool> for Data {
+    fn from(b: bool) -> Self {
+        Data::Bool(b)
     }
 }
 
